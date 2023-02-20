@@ -61,4 +61,3 @@ const getNews = () => __awaiter(void 0, void 0, void 0, function* () {
     return message;
 });
 exports.getNews = getNews;
-(0, exports.getNews)();
