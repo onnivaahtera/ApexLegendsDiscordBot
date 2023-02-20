@@ -1,5 +1,6 @@
 import { EmbedBuilder } from 'discord.js';
 import { config } from 'dotenv';
+import { noUser } from '.';
 config();
 
 export const getUseProfile = async (username: string) => {
@@ -7,6 +8,8 @@ export const getUseProfile = async (username: string) => {
 		`https://api.mozambiquehe.re/bridge?auth=${process.env.API_KEY}&player=${username}&platform=PC`
 	);
 	const data = await res.json();
+
+	if (data.Error) return noUser;
 
 	const message = new EmbedBuilder()
 		.setColor('DarkPurple')
@@ -40,7 +43,6 @@ export const getUseProfile = async (username: string) => {
 				value: `${data.legends.selected.LegendName}`,
 			}
 		);
-
 	return message;
 };
 

@@ -4,10 +4,13 @@ import {
 	Client,
 	GatewayIntentBits,
 	SlashCommandBuilder,
+	EmbedBuilder,
 } from 'discord.js';
 import { config } from 'dotenv';
 import { getMap, getNews, getUseProfile } from './api';
 config();
+
+export const noUser = new EmbedBuilder().setTitle('User not found');
 
 const stats = new SlashCommandBuilder()
 	.setName('stats')
@@ -57,10 +60,17 @@ client.on('interactionCreate', async (interaction) => {
 	if (!interaction.isChatInputCommand()) return;
 
 	if (interaction.commandName === 'stats') {
-		const username = interaction.options.getString('username');
-		await interaction.reply({
-			embeds: [await getUseProfile(username!)],
-		});
+		try {
+			const username = interaction.options.getString('username');
+			await interaction.reply({
+				embeds: [await getUseProfile(username!)],
+			});
+		} catch (err) {
+			console.log(err);
+			await interaction.reply({
+				embeds: [noUser],
+			});
+		}
 	}
 
 	if (interaction.commandName === 'map') {
