@@ -70,5 +70,3 @@ export const getNews = async () => {
 
 	return message;
 };
-
-getNews();
