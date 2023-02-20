@@ -9,9 +9,9 @@ import { config } from 'dotenv';
 import { getMap, getNews, getUseProfile } from './api';
 config();
 
-const user = new SlashCommandBuilder()
-	.setName('user')
-	.setDescription('get user data')
+const stats = new SlashCommandBuilder()
+	.setName('stats')
+	.setDescription('get stats')
 	.addStringOption((option) =>
 		option
 			.setName('username')
@@ -38,7 +38,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN!);
 		console.log('Started refreshing application (/) commands.');
 
 		await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
-			body: [user, map, store, news],
+			body: [stats, map, store, news],
 		});
 
 		console.log('Successfully reloaded application (/) commands.');
@@ -56,7 +56,7 @@ client.on('ready', () => {
 client.on('interactionCreate', async (interaction) => {
 	if (!interaction.isChatInputCommand()) return;
 
-	if (interaction.commandName === 'user') {
+	if (interaction.commandName === 'stats') {
 		const username = interaction.options.getString('username');
 		await interaction.reply({
 			embeds: [await getUseProfile(username!)],
