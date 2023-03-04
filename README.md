@@ -1,2 +1,2 @@
 # ApexLegendsDiscordBot
-# https://apexlegendsstatus.com/
+
