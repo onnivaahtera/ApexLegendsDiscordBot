@@ -1,6 +1,6 @@
-import { EmbedBuilder } from 'discord.js';
-import { config } from 'dotenv';
-import { noUser } from '.';
+import { EmbedBuilder } from "discord.js";
+import { config } from "dotenv";
+import { noUser } from "..";
 config();
 
 export const getUseProfile = async (username: string) => {
@@ -12,19 +12,19 @@ export const getUseProfile = async (username: string) => {
 	if (data.Error) return noUser;
 
 	const message = new EmbedBuilder()
-		.setColor('DarkPurple')
+		.setColor("DarkPurple")
 		.setTitle(data.global.name)
 		.setURL(`https://apexlegendsstatus.com/profile/PC/${username}`)
 		.setDescription(
 			`${
 				data.realtime.isOnline === 1
-					? ':green_circle: User is online'
-					: ':red_circle: User is offline'
+					? ":green_circle: User is online"
+					: ":red_circle: User is offline"
 			}`
 		)
 		.addFields(
 			{
-				name: 'General',
+				name: "General",
 				value: `${
 					data.global.levelPrestige > 0
 						? `Level: ${data.global.level} (${data.global.toNextLevelPercent}%).\nPrestige ${data.global.levelPrestige}.`
@@ -32,14 +32,14 @@ export const getUseProfile = async (username: string) => {
 				}`,
 				inline: true,
 			},
-			{ name: '\u200B', value: '\u200B', inline: true },
+			{ name: "\u200B", value: "\u200B", inline: true },
 			{
-				name: 'Ranked',
+				name: "Ranked",
 				value: `Rank: ${data.global.rank.rankName} ${data.global.rank.rankDiv}\nRP: ${data.global.rank.rankScore}`,
 				inline: true,
 			},
 			{
-				name: 'Current legend',
+				name: "Current legend",
 				value: `${data.legends.selected.LegendName}`,
 			}
 		);
@@ -62,7 +62,7 @@ export const getNews = async () => {
 	const data = await res.json();
 
 	const message = new EmbedBuilder()
-		.setColor('DarkPurple')
+		.setColor("DarkPurple")
 		.setTitle(data[0].title)
 		.setURL(data[0].link)
 		.setDescription(data[0].short_desc)
