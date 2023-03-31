@@ -1,7 +1,6 @@
 import { REST, Routes, Client, GatewayIntentBits, EmbedBuilder } from "discord.js";
 import { config } from "dotenv";
 import { apexInteractions, ApexMap, news, stats, store } from "./apex/commands";
-import { MarioMap } from "./marioKart/commands";
 config();
 
 export const noUser = new EmbedBuilder().setTitle("User not found");
@@ -13,7 +12,7 @@ const rest = new REST({ version: "10" }).setToken(process.env.TOKEN!);
 		console.log("Started refreshing application (/) commands.");
 
 		await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
-			body: [ApexMap, news, stats, store, MarioMap],
+			body: [ApexMap, news, stats, store],
 		});
 
 		console.log("Successfully reloaded application (/) commands.");
